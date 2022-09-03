@@ -12,4 +12,9 @@ with open(filename, 'r') as f:
 	#str() to convert the file to a string
 	#()\ matches characters in ()
         dictionary = dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\*]+):([ a-zA-Z0-9\[\]\-\,\()\*]+)', str(file)))
-    print(dictionary)
+
+	json = json.dumps(dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\*]+):([ a-zA-Z0-9\[\]\-\,\()\*]+)', str(file))))
+
+    #print(dictionary)
+    print(json)
+	

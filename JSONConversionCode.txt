@@ -1,0 +1,15 @@
+#JSONConversionCode
+
+filename = '../data/12054.txt'
+
+import re
+
+import json
+
+filename = '../data/12054.txt'
+
+with open(filename, 'r') as f:
+    for lines in f:
+        file = f.readlines()
+        #str() to convert the file to a string
+    print(dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\*]+):([ a-zA-Z0-9\[\]\-\,\()\*]+)', str(file))))

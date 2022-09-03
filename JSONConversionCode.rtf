@@ -19,4 +19,6 @@ with open(filename, 'r') as f:\
     for lines in f:\
         file = f.readlines()\
         #str() to convert the file to a string\
-    print(dict(re.findall(r'([a-zA-Z0-9\\[\\]\\-\\,\\()\\*]+):([ a-zA-Z0-9\\[\\]\\-\\,\\()\\*]+)', str(file))))}
+    print(dict(re.findall(r'([a-zA-Z0-9\\[\\]\\-\\,\\()\\*]+):([ a-zA-Z0-9\\[\\]\\-\\,\\()\\*]+)', str(file))))\
+\
+    #print(json)}

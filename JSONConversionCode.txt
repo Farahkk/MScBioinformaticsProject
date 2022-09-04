@@ -18,6 +18,10 @@ with open(filename, 'r') as f:
         
         #str() to convert the file to a string
         #()\ matches characters in ()
+        #json.dumps function to group similar keys together
+        #pprint.pprint function to print key: value pairs on new line
+        #pprint.PrettyPrinter function to print each entry to a new line as dictionary     width is too short when printed
+
     #print(dictionary)
     #pprint.pprint(dictionary)
     #print(json)

@@ -19,7 +19,10 @@ with open(filename, 'r') as f:
         #str() to convert the file to a string
         #()\ matches characters in ()
     #print(dictionary)
-    pprint.pprint(dictionary)
+    #pprint.pprint(dictionary)
     #print(json)
     #pprint.pprint(json)
-	
+    better = pprint.PrettyPrinter(width=200)#adjust width argument accordingly
+    better.pprint(dictionary)
+    #better.pprint(json)
+    

@@ -4,17 +4,22 @@ import re
 
 import json
 
+import pprint
+
 filename = '../data/12054.txt'
 
 with open(filename, 'r') as f:
     for lines in f:
         file = f.readlines()
-	#str() to convert the file to a string
-	#()\ matches characters in ()
+        
         dictionary = dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\*]+):([ a-zA-Z0-9\[\]\-\,\()\*]+)', str(file)))
-
-	json = json.dumps(dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\*]+):([ a-zA-Z0-9\[\]\-\,\()\*]+)', str(file))))
-
+        
+        json = json.dumps(dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\*]+):([ a-zA-Z0-9\[\]\-\,\()\*]+)', str(file))))
+        
+        #str() to convert the file to a string
+        #()\ matches characters in ()
     #print(dictionary)
-    print(json)
+    pprint.pprint(dictionary)
+    #print(json)
+    #pprint.pprint(json)
 	

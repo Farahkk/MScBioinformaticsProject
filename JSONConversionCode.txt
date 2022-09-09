@@ -1,32 +1,16 @@
 #JSONConversionCode
 
-import re
+#another version
 
 import json
 
-import pprint
-
 filename = '../data/12054.txt'
 
+dict = {}
 with open(filename, 'r') as f:
-    for lines in f:
-        file = f.readlines()
-        
-        dictionary = dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\ \\\*]+):([ a-zA-Z0-9\[\]\-\,\()\ \\\*]+)', str(file))) #.* matches all characters
-        
-        json = json.dumps(dict(re.findall(r'([a-zA-Z0-9\[\]\-\,\()\ \\\*]+):([ a-zA-Z0-9\[\]\-\,\()\ \\\*]+)', str(file))))
-        
-        #str() to convert the file to a string
-        #()\ matches characters in ()
-        #json.dumps function to group similar keys together
-        #pprint.pprint function to print key: value pairs on new line
-        #pprint.PrettyPrinter function to print each entry to a new line as dictionary     width is too short when printed
+    for line in filename:
+        key = line.strip()
+        value = f.readline().strip()
+        dict[key] = value
 
-    #print(dictionary)
-    #pprint.pprint(dictionary)
-    #print(json)
-    #pprint.pprint(json)
-    better = pprint.PrettyPrinter(width=200)#adjust width argument accordingly
-    better.pprint(dictionary)
-    #better.pprint(json)
-    
+print(json.dumps(dic))

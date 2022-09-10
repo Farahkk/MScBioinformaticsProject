@@ -1,16 +1,15 @@
-#JSONConversionCode
-
-#another version
-
-import json
+# Read in the file and replace ';' with ','
 
 filename = '../data/12054.txt'
 
-dict = {}
-with open(filename, 'r') as f:
-    for line in filename:
-        key = line.strip()
-        value = f.readline().strip()
-        dict[key] = value
+with open(filename, 'r') as file :
+  newfile = file.read()
 
-print(json.dumps(dic))
+# Replace the target string
+newfile = newfile.replace(';', ',')
+
+# Write the file out again
+#with open(filename, 'w') as file:
+  #file.write(newfile)
+
+print(newfile)

@@ -7,6 +7,7 @@ with open(filename, 'r') as file :
 
 # Replace the target string
 newfile = newfile.replace(';', ',')
+newfile = newfile.replace('//', ',')
 
 # Write the file out again
 #with open(filename, 'w') as file:

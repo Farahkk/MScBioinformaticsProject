@@ -1,16 +1,44 @@
-# Read in the file and replace ';' with ','
+import re
+
+import json
+
+import pprint
 
 filename = '../data/12054.txt'
 
-with open(filename, 'r') as file :
-  newfile = file.read()
+with open(filename, 'r') as f:
+    for lines in f:
+        file = f.readlines()
+        
+        dictionary = dict(re.findall(r'(.{1,}):(.{1,})', str(file))) 
+        #. Match any character except newline (normally)
+        #{n,} Match at least n times
+        
+        #json = json.dumps(dict(re.findall(r'(.{1,}):(.{1,})', str(file))))
+        
+        #str() to convert the file to a string
+        #json.dumps function to group similar keys together
+        #pprint.pprint function to print key: value pairs on new line
+        #pprint.PrettyPrinter function to print each entry to a new line as dictionary     width is too short when printed
 
-# Replace the target string
-newfile = newfile.replace(';', ',')
-newfile = newfile.replace('//', ',')
+    print(dictionary)
+    #pprint.pprint(dictionary)
+    #print(json)
+    #pprint.pprint(json)
+    #better = pprint.PrettyPrinter(width=200)#adjust width argument accordingly
+    #better.pprint(dictionary)
+    #better.pprint(json)
+import re
 
-# Write the file out again
-#with open(filename, 'w') as file:
-  #file.write(newfile)
+filename = '../data/12054.txt'
 
-print(newfile)
+with open(filename, 'r') as f:
+    for lines in f:
+        file = f.readlines()
+        
+        dictionary = dict(re.findall(r'(.{1,}):(.{1,})', str(file))) 
+        #. Match any character except newline (normally)
+        #{n,} Match at least n times
+        
+    print(dictionary)
+    

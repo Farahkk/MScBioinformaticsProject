@@ -4,24 +4,15 @@
  
 import json
 
-# the file to be converted to
-# json format
-file = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
+filename = '../data/12054.txt'
 
- 
-# dictionary where the data from
-# text file will be stored
-dict = {}
- 
-# read from file 
-with open(file) as f:
- 
-    for line in f:
-        #read lines from file and remove spaces to get valid data only
-        if ',' not in line:
-            continue
-        key, desc = line.strip().split(None,1)
-        dict[key] = desc.strip()
+dic = {}
 
-
-print(json.dumps(dict, indent=2))
+with open(filename, 'r') as f:
+    #read lines from file and remove spaces to get valid data only
+        for line in f:
+            if ',' not in line:
+                continue
+            key, value = line.split(':', 1)
+            dic[key] = value 
+        print(json.dumps(dic, indent=2))

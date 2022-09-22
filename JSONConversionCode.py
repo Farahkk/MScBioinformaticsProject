@@ -13,6 +13,6 @@ with open(filename, 'r') as f:
         for line in f:
             if ',' not in line:
                 continue
-            key, value = line.split(':', 1)
+            key, value = line.strip().split(':', 1)
             dic[key] = value 
         print(json.dumps(dic, indent=2))

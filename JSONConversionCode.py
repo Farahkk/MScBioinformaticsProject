@@ -4,8 +4,7 @@
  
 import json
 
-filename = '../data/12054.txt'
-
+filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
 dic = {}
 
 with open(filename, 'r') as f:

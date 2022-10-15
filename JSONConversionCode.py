@@ -4,8 +4,9 @@
  
 import json
 
-filename = '../data/12054.txt'
+filename = '12054.txt'
 dic = {}
+previousKey = ''
 
 # This is our state machine to indicate if we are in one of the sequence
 # blocks - to start we aren't
@@ -15,46 +16,44 @@ inSequence = False
 #while(readFromFile(line))
 
 with open(filename, 'r') as f:
-    #read lines from file and remove spaces to get valid data only
+        #read lines from file and remove spaces to get valid data only
         for line in f:
-            #if ',' not in line:
-                #continue
-            #key, value = line.strip(';,\n').split(':', 1)
-            #dic[key] = value 
-        #print(json.dumps(dic, indent=2))
+                line = line.strip(';,\n')
+                #if ',' not in line:
+                    #continue
+                    #key, value = line.strip(';,\n').split(':', 1)
+                #dic[key] = value 
+                #print(json.dumps(dic, indent=2))
         
-#while(readFromFile(line))          
-            if line == '//': #This indicates the end of a sequence block
+                if line == '//': #This indicates the end of a sequence block
 
-                inSequence = False
+                        inSequence = False
 
-            elif line == "Chain" or line == "Heavy Chain" or line == "Light Chain": # Start of a sequence block 
+                # Regular expression /(Heavy|Light)?\s*Chain([.*])?:/
+                elif line[0:5] == "Chain" or
+                     line[0:11] == "Heavy Chain" or
+                     line[0:11] == "Light Chain": # Start of a sequence block 
 
-            #remove-colon-from-end-of-line;
-                 key = line;
-                 data[key] = '';     # Initialize data storage 
+                        #remove-colon-from-end-of-line;
+                        key = line.strip(':');
+                        dic[key] = '';     # Initialize data storage 
         
-                 inSequence = True;
+                        inSequence = True;
         
-            elif inSequence:    # We are within a sequence block
+                elif inSequence:    # We are within a sequence block
     
-           #cleanup(line):      # Strip whitespace and return character
-                data[key] += line;  # Append sequence information to the data
+                        #cleanup(line):      # Strip whitespace and return character
+                        dic[key] += line;  # Append sequence information to the data
 
-            else:                # Normal line
-   
-                (key, value) = line.strip(';,\n').split(':', 1);
+                else:                # Normal line
+                        if(len(line) > 1):
+                                (key, value) = line.split(':', 1);
+                                # Special case of note records where we add '-' and the previous line's key
+                                if key[0:4] == 'Note':
+                                        key += "-" + previousKey;
+                                        dic[key] = value;
+                                        continue
+                                previousKey = key;     # Update the previous key to be the key from this line
 
-           # Special case of note records where we add '-' and the previous line's key
-            if key == 'Note[:]':
-    
-                key += "-" + previousKey;
-      
-                data[key] = value;
-   
-                previousKey = key;     # Update the previous key to be the key from this line
-            
-            #continue
-        key, value = line.strip('; ,\n').split(':', 1)
-        dic[key] = value 
+                                dic[key] = value 
         print(json.dumps(dic, indent=2))

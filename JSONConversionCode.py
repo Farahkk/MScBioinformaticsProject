@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
 # Python program to convert text file to JSON
- 
+#filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
 import json
 
-filename = '12054.txt'
+filename = input('Enter a file path: ')
 dic = {}
 previousKey = ''
 
@@ -30,9 +30,7 @@ with open(filename, 'r') as f:
                         inSequence = False
 
                 # Regular expression /(Heavy|Light)?\s*Chain([.*])?:/
-                elif line[0:5] == "Chain" or
-                     line[0:11] == "Heavy Chain" or
-                     line[0:11] == "Light Chain": # Start of a sequence block 
+                elif line[0:5] == "Chain" or line[0:11] == "Heavy Chain" or line[0:11] == "Light Chain": # Start of a sequence block 
 
                         #remove-colon-from-end-of-line;
                         key = line.strip(':');

@@ -1,10 +1,16 @@
 #!/usr/bin/python3
 
 # Python program to convert text file to JSON
-#filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
+
+
 import json
+import re
+
+#filename = '../data/12054.txt'
+#filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
 
 filename = input('Enter a file path: ')
+
 dic = {}
 previousKey = ''
 
@@ -30,28 +36,37 @@ with open(filename, 'r') as f:
                         inSequence = False
 
                 # Regular expression /(Heavy|Light)?\s*Chain([.*])?:/
-                elif line[0:5] == "Chain" or line[0:11] == "Heavy Chain" or line[0:11] == "Light Chain": # Start of a sequence block 
-
+                
+                # Heavy Chain[1] or Light Chain[1] or Chain[2-3-4-5]
+                
+                # re.findall(r((Heavy|Light)?\s*Chain(/[.*/])?)):
+                
+                #elif line[0:5] == "Chain" or line[0:11] == "Heavy Chain" or line[0:11] == "Light Chain": # Start of a sequence block 
+                
+                elif line == re.findall(r'(\bHeavy|Light\b\s\bChain\b\s\[\d\-\d\-\d\])', str(filename)):
                         #remove-colon-from-end-of-line;
-                        key = line.strip(':');
-                        dic[key] = '';     # Initialize data storage 
+                        key = line.strip(':')
+                        dic[key] = ''     # Initialize data storage 
         
-                        inSequence = True;
+                        inSequence = True
         
                 elif inSequence:    # We are within a sequence block
     
                         #cleanup(line):      # Strip whitespace and return character
-                        dic[key] += line;  # Append sequence information to the data
+        
+        
+                        dic[key] += line  # Append sequence information to the data
 
                 else:                # Normal line
                         if(len(line) > 1):
-                                (key, value) = line.split(':', 1);
+                                (key, value) = line.split(':', 1)
                                 # Special case of note records where we add '-' and the previous line's key
                                 if key[0:4] == 'Note':
-                                        key += "-" + previousKey;
-                                        dic[key] = value;
+                                        key += "-" + previousKey
+                                        dic[key] = value
                                         continue
-                                previousKey = key;     # Update the previous key to be the key from this line
+                                previousKey = key     # Update the previous key to be the key from this line
 
                                 dic[key] = value 
         print(json.dumps(dic, indent=2))
+

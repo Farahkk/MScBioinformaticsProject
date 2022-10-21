@@ -1,3 +1,6 @@
+#filename = '../data/12054.txt'
+#filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
+
 #!/usr/bin/python3
 
 # Python program to convert text file to JSON
@@ -7,7 +10,6 @@ import json
 import re
 
 #filename = '../data/12054.txt'
-#filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
 
 filename = input('Enter a file path: ')
 
@@ -25,11 +27,6 @@ with open(filename, 'r') as f:
         #read lines from file and remove spaces to get valid data only
         for line in f:
                 line = line.strip(';,\n')
-                #if ',' not in line:
-                    #continue
-                    #key, value = line.strip(';,\n').split(':', 1)
-                #dic[key] = value 
-                #print(json.dumps(dic, indent=2))
         
                 if line == '//': #This indicates the end of a sequence block
 
@@ -52,8 +49,9 @@ with open(filename, 'r') as f:
         
                 elif inSequence:    # We are within a sequence block
     
-                        #cleanup(line):      # Strip whitespace and return character
-        
+                        #cleanup(line):      
+                        # Strip whitespace and return character
+                        line == re.findall(r'(A-Z^ )', str(filename)):
         
                         dic[key] += line  # Append sequence information to the data
 
@@ -69,4 +67,3 @@ with open(filename, 'r') as f:
 
                                 dic[key] = value 
         print(json.dumps(dic, indent=2))
-

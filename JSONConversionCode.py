@@ -1,15 +1,13 @@
-#filename = '../data/12054.txt'
-#filename = 'Downloads/Bioinformatics/MSc_Project/sample_files/12054.txt'
-
 #!/usr/bin/python3
-
 # Python program to convert text file to JSON
 
+# for file in *.txt
+# do
+#     ./JSONConversionCode.py $file > `basename $file .txt`.json
+# done
 
 import json
 import re
-
-#filename = '../data/12054.txt'
 
 filename = input('Enter a file path: ')
 
@@ -40,7 +38,7 @@ with open(filename, 'r') as f:
                 
                 #elif line[0:5] == "Chain" or line[0:11] == "Heavy Chain" or line[0:11] == "Light Chain": # Start of a sequence block 
                 
-                elif line == re.findall(r'(\bHeavy|Light\b\s\bChain\b\s\[\d\-\d\-\d\])', str(filename)):
+                elif re.search(r'^(Heavy\s|Light\s)?Chain[:\[]', line):
                         #remove-colon-from-end-of-line;
                         key = line.strip(':')
                         dic[key] = ''     # Initialize data storage 
@@ -51,13 +49,16 @@ with open(filename, 'r') as f:
     
                         #cleanup(line):      
                         # Strip whitespace and return character
-                        line == re.findall(r'(A-Z^ )', str(filename)):
+                        line = line.replace(' ', '')
+                        line = re.sub(r'\d', '', line)
         
                         dic[key] += line  # Append sequence information to the data
 
                 else:                # Normal line
                         if(len(line) > 1):
                                 (key, value) = line.split(':', 1)
+                                value = re.sub(r'^\s+', '', value)
+                                
                                 # Special case of note records where we add '-' and the previous line's key
                                 if key[0:4] == 'Note':
                                         key += "-" + previousKey
@@ -67,3 +68,4 @@ with open(filename, 'r') as f:
 
                                 dic[key] = value 
         print(json.dumps(dic, indent=2))
+

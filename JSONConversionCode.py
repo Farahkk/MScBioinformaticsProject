@@ -7,14 +7,10 @@
 # done
 
 import sys
-import fileinput
 import json
 import re
 
-#filename = input('Enter a file path: ')
-#filename = sys.argv[-1]
-#for arg in sys.argv[1:]:    # [0] is the program name.
-    print(arg)
+filename = sys.argv[1]
 
 dic = {}
 previousKey = ''
@@ -23,15 +19,6 @@ previousKey = ''
 # blocks - to start we aren't
 
 inSequence = False
-
-# using fileinput() to call filename in the terminal
-for line in fileinput.input(encoding="utf-8"):
-    process(line)
-
-for arg in sys.argv[1:]:    # [0] is the program name.
-    print(arg)    
-
-#while(readFromFile(line))
 
 with open(filename, 'r') as f:
         #read lines from file and remove spaces to get valid data only

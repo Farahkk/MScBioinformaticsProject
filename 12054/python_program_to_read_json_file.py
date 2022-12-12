@@ -1,65 +1,43 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+# Python program to read
+# json file
 
-import sys 
 import json
 import pymongo
 from pymongo import MongoClient
 
-def mongo_connect():
+def mongo_connect(user, password, host, path, clusterName, collectionName):
     """
     Call this with:
     collection = mongo_connect()
     """
-    
+   
     # Parameters for connecting to the database (which you can obtain from your Atlas account
     # See documentation at https://www.mongodb.com/docs/manual/reference/connection-string/
-    #user           = "MyUserName"
-    #password       = "MyPassword"
-    #host           = "cluster0.example.mongodb.net"
-    #path           = "/AntibodyBasedDrugs"
-    #options        = "?retryWrites=true&w=majority"
-    #clusterName    = "MyClusterName"
-    #collectionName = "MyCollectionName"
-    user           = "FarahKhan"
-    password       = "Birkbeck1"
-    host           = "cluster0.example.mongodb.net"
-    path           = "/AntibodyBasedDrugs"
     options        = "?retryWrites=true&w=majority"
-    clusterName    = "Cluster0"
-    collectionName = "Database Deployments"
 
     #Connecting to the MongoDB database/collection
     url            = "mongodb+srv://" + user + ":" + password + "@" + host + path + options
-    print (url)
     cluster        = MongoClient(url)
     db             = cluster[clusterName]
     collection     = db[collectionName]
     return collection
 
-collection = mongo_connect()
-exit()
-# Python program to read
-# json file
-  
-#import sys 
-#import json
 
-#filename = sys.argv[-1]
-
-# Opening JSON file
+# Open JSON file, load the data as a dictionary and close the file
 f = open('12054.json')
-  
-# returns JSON object as 
-# a dictionary
 record = json.load(f)
-print(record)
-
-# Iterating through the json
-# list
-#for i in data['emp_details']:
-    #print(i)
-  
-# Closing file
 f.close()
 
-rec_id1 = collection.insert_one(record)
+collection = mongo_connect("FarahKhan", "Birkbeck1", "cluster0.xneqo1q.mongodb.net",
+                           "/", "Cluster0", "AntibodyBasedDrugs")
+
+# Insert the data
+collection.insert_one(record)
+
+# Read and print the data
+for record in collection.find():
+   print(record)
+
+
+  

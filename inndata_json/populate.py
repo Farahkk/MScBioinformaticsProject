@@ -2,9 +2,17 @@
 # Python program to read
 # json file
 
+#for file in *.json
+#do
+#./populate.py $file
+#done
+
+import sys
 import json
 import pymongo
 from pymongo import MongoClient
+
+file = sys.argv[1]
 
 def mongo_connect(user, password, host, path, clusterName, collectionName):
     """
@@ -24,20 +32,23 @@ def mongo_connect(user, password, host, path, clusterName, collectionName):
     return collection
 
 
+#file = sys.argv[0]
+
 # Open JSON file, load the data as a dictionary and close the file
-f = open('12054.json')
+f = open(file)
 record = json.load(f)
 f.close()
 
 collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.net",
                            "/", "Cluster0", "AntibodyBasedDrugs")
 
+
 # Insert the data
 collection.insert_one(record)
 
 # Read and print the data
-for record in collection.find():
-   print(record)
+#for record in collection.find():
+#print(record)
 
 
   

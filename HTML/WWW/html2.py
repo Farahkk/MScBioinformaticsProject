@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+print("""
 <html>
 
 <p><b>Summary of hits from the database search:</b><br /></p>
@@ -32,3 +34,4 @@
         </div>
 
 </html>
+""")

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+print("""
 <html>
 <head>
 	<title>My first chart using FusionCharts Suite XT</title>
@@ -90,3 +92,4 @@
 		<div id="chart-container">FusionCharts XT will load here!</div>
 	</body>
 </html>
+""")

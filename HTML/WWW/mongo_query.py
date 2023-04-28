@@ -6,11 +6,7 @@ import re
 import json
 
 
-import pymongo
-from pymongo import MongoClient
-
-
-
+#-------------------------------------------------------------------------------
 def mongo_connect(user, password, host, path, clusterName, collectionName):
     """
     Call this with:
@@ -28,11 +24,7 @@ def mongo_connect(user, password, host, path, clusterName, collectionName):
     collection     = db[collectionName]
     return collection
 
-
-
-
-
-
+#-------------------------------------------------------------------------------
 def add_to_query(query_parts, key, value, yesno):
     query = ''
     if yesno == "yes":
@@ -44,7 +36,7 @@ def add_to_query(query_parts, key, value, yesno):
         query_parts.append(query)
     return query_parts;
 
-#-------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Combines the individual query parts into one query
 def combine_query_parts(query_parts):
     query = ''
@@ -69,32 +61,81 @@ def combine_query_parts(query_parts):
     query += "]}"                          # Finish the ANDing
  
     return(query)
-
-
         
-#-------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Runs the query. Converts the JSON query into a dictionary and 
 # runs it against the MongoDB database.
 def run_query(collection, query):
 
     if query == '':
         # Return everything
-        results   = collection.find()
+        raw_results   = collection.find()
     else:
         # Convert JSON string to a dictionary and run query
         jsonquery = json.loads(query)
-        results   = collection.find(jsonquery)
-        
-    return(results)
+        raw_results   = collection.find(jsonquery)
 
-#-------------------------------------------------------------------------
+    count = 0
+    final_results = []
+    for doc in raw_results:
+        newdoc      = {}    
+        count      += 1
+        # Copy all the key/value pairs into the new document
+        for key,value in doc.items():
+            if key != '_id':
+                newdoc[key] = value
+
+        # Append this new document to the output
+        final_results.append(newdoc)
+
+    return(count, final_results)
+    
+#-------------------------------------------------------------------------------
 if __name__ == "__main__":
     query_parts = []
 
+    # Require the Format record contains 'bispecific'
+    query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
+    # Ensure that a MutationH record is present
+    query_parts = add_to_query(query_parts, "MutationH[1]", "", "yes")
+    # Ensure that it's not a fusion protein
+    query_parts = add_to_query(query_parts, "Format", "fusion", "no")
+
+    query = combine_query_parts(query_parts)
+
+    print(query)
+
+    collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.net",
+                           "/", "Cluster0", "AntibodyBasedDrugs")
+
+    # Once you have a 'collection' variable (for your connection with the
+    # MongoDB database) you can call run_query() against the database
+    (n_results, results) = run_query(collection, query)
+
+    # Iterate over the returned entries
+    for result in results:
+        # In reality you need to do something here to start a row in your HTML table
+
+        # Iterate over the key/value pairs
+        for key,value in result.items():
+            # Here you would test for the keys of interest that you want to use in the summary
+            # table and print the html table data for those
+            if (len(key)):
+                print(key + ':' + value)
+
+
+
+
+
+
+
+
+    
+
+"""
     # Query for the:
 
     #Identifier (INN "Request Number"):
-    """
 
     # Source of the antibody:
     # Require the Format record contains 'canine'
@@ -191,30 +232,4 @@ if __name__ == "__main__":
 
 
 
-    """
-
-
-
-
-    # Require the Format record contains 'bispecific'
-    query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
-    # Ensure that a MutationH record is present
-    query_parts = add_to_query(query_parts, "MutationH", "", "yes")
-    # Ensure that it's not a fusion protein
-    query_parts = add_to_query(query_parts, "Format", "fusion", "no")
-
-    query = combine_query_parts(query_parts)
-
-    #print(query)
-
-    collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.net",
-                           "/", "Cluster0", "AntibodyBasedDrugs")
-
-    # Once you have a 'collection' variable (for your connection with the
-    # MongoDB database) you can call run_query() against the database
-    #results = run_query(collection, query)
-    results = run_query(collection, '')
-    #print(results)
-    for key,value in results.items():
-        if (len(key)):
-            print(key + ':' + value)
+    """               

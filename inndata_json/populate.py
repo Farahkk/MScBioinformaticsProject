@@ -49,6 +49,3 @@ collection.insert_one(record)
 # Read and print the data
 #for record in collection.find():
 #print(record)
-
-
-  

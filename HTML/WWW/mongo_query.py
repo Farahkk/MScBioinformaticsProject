@@ -6,25 +6,7 @@ import re
 import json
 
 
-#-------------------------------------------------------------------------------
-def mongo_connect(user, password, host, path, clusterName, collectionName):
-    """
-    Call this with:
-    collection = mongo_connect()
-    """
-   
-    # Parameters for connecting to the database (which you can obtain from your Atlas account
-    # See documentation at https://www.mongodb.com/docs/manual/reference/connection-string/
-    options        = "?retryWrites=true&w=majority"
 
-    #Connecting to the MongoDB database/collection
-    url            = "mongodb+srv://" + user + ":" + password + "@" + host + path + options
-    cluster        = MongoClient(url)
-    db             = cluster[clusterName]
-    collection     = db[collectionName]
-    return collection
-
-#-------------------------------------------------------------------------------
 def add_to_query(query_parts, key, value, yesno):
     query = ''
     if yesno == "yes":
@@ -36,7 +18,7 @@ def add_to_query(query_parts, key, value, yesno):
         query_parts.append(query)
     return query_parts;
 
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Combines the individual query parts into one query
 def combine_query_parts(query_parts):
     query = ''
@@ -61,43 +43,32 @@ def combine_query_parts(query_parts):
     query += "]}"                          # Finish the ANDing
  
     return(query)
+
+
         
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Runs the query. Converts the JSON query into a dictionary and 
 # runs it against the MongoDB database.
 def run_query(collection, query):
 
     if query == '':
         # Return everything
-        raw_results   = collection.find()
+        results   = collection.find()
     else:
         # Convert JSON string to a dictionary and run query
         jsonquery = json.loads(query)
-        raw_results   = collection.find(jsonquery)
+        results   = collection.find(jsonquery)
+        
+    return(results)
 
-    count = 0
-    final_results = []
-    for doc in raw_results:
-        newdoc      = {}    
-        count      += 1
-        # Copy all the key/value pairs into the new document
-        for key,value in doc.items():
-            if key != '_id':
-                newdoc[key] = value
-
-        # Append this new document to the output
-        final_results.append(newdoc)
-
-    return(count, final_results)
-    
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 if __name__ == "__main__":
     query_parts = []
 
     # Require the Format record contains 'bispecific'
     query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
     # Ensure that a MutationH record is present
-    query_parts = add_to_query(query_parts, "MutationH[1]", "", "yes")
+    query_parts = add_to_query(query_parts, "MutationH", "", "yes")
     # Ensure that it's not a fusion protein
     query_parts = add_to_query(query_parts, "Format", "fusion", "no")
 
@@ -105,131 +76,6 @@ if __name__ == "__main__":
 
     print(query)
 
-    collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.net",
-                           "/", "Cluster0", "AntibodyBasedDrugs")
-
     # Once you have a 'collection' variable (for your connection with the
     # MongoDB database) you can call run_query() against the database
-    (n_results, results) = run_query(collection, query)
-
-    # Iterate over the returned entries
-    for result in results:
-        # In reality you need to do something here to start a row in your HTML table
-
-        # Iterate over the key/value pairs
-        for key,value in result.items():
-            # Here you would test for the keys of interest that you want to use in the summary
-            # table and print the html table data for those
-            if (len(key)):
-                print(key + ':' + value)
-
-
-
-
-
-
-
-
-    
-
-"""
-    # Query for the:
-
-    #Identifier (INN "Request Number"):
-
-    # Source of the antibody:
-    # Require the Format record contains 'canine'
-    query_parts = add_to_query(query_parts, "Format", "canine", "yes")
-
-    # Require the Format record contains 'caninized'
-    query_parts = add_to_query(query_parts, "Format", "caninized", "yes")
-
-    # Require the Format record contains 'chimeric'
-    query_parts = add_to_query(query_parts, "Format", "chimeric", "yes")
-
-    # Require the Format record contains 'felinized'
-    query_parts = add_to_query(query_parts, "Format", "felinized", "yes")
-
-    # Require the Format record contains 'human'
-    query_parts = add_to_query(query_parts, "Format", "human", "yes")
-
-    # Require the Format record contains 'humanized'
-    query_parts = add_to_query(query_parts, "Format", "humanized", "yes")
-
-    # Require the Format record contains 'llama'
-    query_parts = add_to_query(query_parts, "Format", "llama", "yes")
-
-    # Require the Format record contains 'mouse'
-    query_parts = add_to_query(query_parts, "Format", "mouse", "yes")
-
-    # Require the Format record contains 'murine'
-    query_parts = add_to_query(query_parts, "Format", "murine", "yes")
-
-    # Require the Format record contains 'rat'
-    query_parts = add_to_query(query_parts, "Format", "rat", "yes")
-
-    # Require the Format record contains 'resurfaced'
-    query_parts = add_to_query(query_parts, "Format", "resurfaced", "yes")
-
-
-
-
-
-    # Nature of the antibody:
-    # for conjugated
-    # Require the Format record contains 'conjugated'
-    query_parts = add_to_query(query_parts, "Format", "conjugated", "yes")
-
-    # Ensure that it's not a conjugated protein
-    query_parts = add_to_query(query_parts, "Format", "conjugated", "no")
-
-
-    # for bispecific
-    # Require the Format record contains 'bispecific'
-    query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
-
-    # Ensure that it's not a bispecific protein
-    query_parts = add_to_query(query_parts, "Format", "bispecific", "no")
-
-
-    # for fusion
-    # Require the Format record contains 'fusion'
-    query_parts = add_to_query(query_parts, "Format", "fusion", "yes")
-
-    # Ensure that it's not a bispecific protein
-    query_parts = add_to_query(query_parts, "Format", "fusion", "no")
-
-
-
-    #Fusion with:
-
-
-    #Enter ID (e.g. clone name, lab code, etc.):
-
-
-    #Antibody type:
-    #Heavy Chain:
-    #IgG1
-    # Require the Type record contains 'IgG1'
-    query_parts = add_to_query(query_parts, "Format", "IgG1", "yes")
-
-    #IgG2
-    # Require the Type record contains 'IgG2'
-    query_parts = add_to_query(query_parts, "Format", "IgG2", "yes")
-
-    #IgG3
-    # Require the Type record contains 'IgG3'
-    query_parts = add_to_query(query_parts, "Format", "IgG3", "yes")
-
-    #IgG4
-    # Require the Type record contains 'IgG4'
-    query_parts = add_to_query(query_parts, "Format", "IgG4", "yes")
-
-    #Fv
-    # Require the Type record contains 'Fv'
-    query_parts = add_to_query(query_parts, "Format", "Fv", "yes")
-
-
-
-
-    """               
+    # results = run_query(collection, query)

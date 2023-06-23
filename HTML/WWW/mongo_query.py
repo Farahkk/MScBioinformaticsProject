@@ -95,15 +95,75 @@ if __name__ == "__main__":
     query_parts = []
 
     # Require the Format record contains 'bispecific'
-    query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
+    #query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
     # Ensure that a MutationH record is present
-    query_parts = add_to_query(query_parts, "MutationH[1]", "", "yes")
+    #query_parts = add_to_query(query_parts, "MutationH[1]", "", "yes")
     # Ensure that it's not a fusion protein
-    query_parts = add_to_query(query_parts, "Format", "fusion", "no")
+    #query_parts = add_to_query(query_parts, "Format", "fusion", "no")
 
-    query = combine_query_parts(query_parts)
+    #query = combine_query_parts(query_parts)
 
-    print(query)
+    #print(query)
+
+
+    # Source of the antibody:
+    
+    if query_parts == add_to_query(query_parts, "Format", "canine", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "caninized", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "chimeric", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "felinized", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "human", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "humanized", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "llama", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "mouse", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "murine", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+
+    elif query_parts == add_to_query(query_parts, "Format", "rat", "yes"):
+        query = combine_query_parts(query_parts)
+        print(query)
+    
+
+    else:
+        query_parts == add_to_query(query_parts, "Format", "resurfaced", "yes")
+        query = combine_query_parts(query_parts)
+        print(query)
+
+
+
+
+
+
+
+
+
+
+
 
     collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.net",
                            "/", "Cluster0", "AntibodyBasedDrugs")
@@ -127,9 +187,6 @@ if __name__ == "__main__":
 
 
 
-
-
-
     
 
 """
@@ -137,37 +194,64 @@ if __name__ == "__main__":
 
     #Identifier (INN "Request Number"):
 
+
+#------------------------------------------------------------------------------------
     # Source of the antibody:
+    
+    
+    # for canine:
     # Require the Format record contains 'canine'
     query_parts = add_to_query(query_parts, "Format", "canine", "yes")
 
+
+    # for caninized:
     # Require the Format record contains 'caninized'
     query_parts = add_to_query(query_parts, "Format", "caninized", "yes")
 
+
+    # for chimeric:
     # Require the Format record contains 'chimeric'
     query_parts = add_to_query(query_parts, "Format", "chimeric", "yes")
 
+
+    # for felinized:
     # Require the Format record contains 'felinized'
     query_parts = add_to_query(query_parts, "Format", "felinized", "yes")
 
+
+    # for human:
     # Require the Format record contains 'human'
     query_parts = add_to_query(query_parts, "Format", "human", "yes")
 
+
+    # for humanized:
     # Require the Format record contains 'humanized'
     query_parts = add_to_query(query_parts, "Format", "humanized", "yes")
 
+
+    # for llama:
     # Require the Format record contains 'llama'
     query_parts = add_to_query(query_parts, "Format", "llama", "yes")
 
+
+    # for mouse:
     # Require the Format record contains 'mouse'
     query_parts = add_to_query(query_parts, "Format", "mouse", "yes")
 
+
+    # for murine:
     # Require the Format record contains 'murine'
     query_parts = add_to_query(query_parts, "Format", "murine", "yes")
 
+
+    # for rat:
     # Require the Format record contains 'rat'
     query_parts = add_to_query(query_parts, "Format", "rat", "yes")
 
+    #also giving out bispecific (biparatopic) in the result???
+
+
+    # for resurfaced:
     # Require the Format record contains 'resurfaced'
     query_parts = add_to_query(query_parts, "Format", "resurfaced", "yes")
 

@@ -6,25 +6,7 @@ import re
 import json
 
 
-#-------------------------------------------------------------------------------
-def mongo_connect(user, password, host, path, clusterName, collectionName):
-    """
-    Call this with:
-    collection = mongo_connect()
-    """
-   
-    # Parameters for connecting to the database (which you can obtain from your Atlas account
-    # See documentation at https://www.mongodb.com/docs/manual/reference/connection-string/
-    options        = "?retryWrites=true&w=majority"
 
-    #Connecting to the MongoDB database/collection
-    url            = "mongodb+srv://" + user + ":" + password + "@" + host + path + options
-    cluster        = MongoClient(url)
-    db             = cluster[clusterName]
-    collection     = db[collectionName]
-    return collection
-
-#-------------------------------------------------------------------------------
 def add_to_query(query_parts, key, value, yesno):
     query = ''
     if yesno == "yes":
@@ -36,7 +18,7 @@ def add_to_query(query_parts, key, value, yesno):
         query_parts.append(query)
     return query_parts;
 
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Combines the individual query parts into one query
 def combine_query_parts(query_parts):
     query = ''
@@ -61,43 +43,35 @@ def combine_query_parts(query_parts):
     query += "]}"                          # Finish the ANDing
  
     return(query)
+
+
         
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Runs the query. Converts the JSON query into a dictionary and 
 # runs it against the MongoDB database.
 def run_query(collection, query):
 
     if query == '':
         # Return everything
-        raw_results   = collection.find()
+        results   = collection.find()
     else:
         # Convert JSON string to a dictionary and run query
         jsonquery = json.loads(query)
-        raw_results   = collection.find(jsonquery)
+        results   = collection.find(jsonquery)
+        
+    return(results)
 
-    count = 0
-    final_results = []
-    for doc in raw_results:
-        newdoc      = {}    
-        count      += 1
-        # Copy all the key/value pairs into the new document
-        for key,value in doc.items():
-            if key != '_id':
-                newdoc[key] = value
-
-        # Append this new document to the output
-        final_results.append(newdoc)
-
-    return(count, final_results)
-    
-#-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 if __name__ == "__main__":
     query_parts = []
 
     # Require the Format record contains 'bispecific'
     #query_parts = add_to_query(query_parts, "Format", "bispecific", "yes")
     # Ensure that a MutationH record is present
+
     #query_parts = add_to_query(query_parts, "MutationH[1]", "", "yes")
+
+ 
     # Ensure that it's not a fusion protein
     #query_parts = add_to_query(query_parts, "Format", "fusion", "no")
 
@@ -165,11 +139,9 @@ if __name__ == "__main__":
 
 
 
-    collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.net",
-                           "/", "Cluster0", "AntibodyBasedDrugs")
-
     # Once you have a 'collection' variable (for your connection with the
     # MongoDB database) you can call run_query() against the database
+
     (n_results, results) = run_query(collection, query)
 
     # Iterate over the returned entries
@@ -317,3 +289,6 @@ if __name__ == "__main__":
 
 
     """               
+
+    # results = run_query(collection, query)
+

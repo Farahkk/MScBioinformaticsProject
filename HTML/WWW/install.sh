@@ -1,6 +1,4 @@
 #!/usr/bin/bash
 
-for file in ./WWW/*/; 
-do 
-  cp ./{index.html,mongo_query.py} /home/farahk/WWW
-done
+cp index.html $HOME/WWW/
+cp cgi-bin/runquery.py $HOME/WWW/runquery.cgi

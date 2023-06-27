@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import cgi
-import pymongo
 from pymongo import MongoClient
 import sys
 import re
@@ -116,8 +115,8 @@ collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.
                            "/", "Cluster0", "AntibodyBasedDrugs")
 
 # Grab the form and the 'source' button value
-form  = cgi.FieldStorage()
-value = form.getvalue('source')
+# form  = cgi.FieldStorage()
+# value = form.getvalue('source')
 
 """
 
@@ -162,7 +161,7 @@ form = cgi.FieldStorage()
 # Step through the yes/no buttons
 for button in yes_no_buttons:
     value = form.getvalue(button)
-    if(value != "don't care"):
+    if(value is not None and value is not "don't care"):
         query_parts = add_to_query(query_parts, fields[button], keywords[button], value)
         #             The field name            ^^^ 
         #             The word we are looking for               ^^^
@@ -172,7 +171,7 @@ for button in yes_no_buttons:
 # Where we have other values which must be in the search we can work in the same way.
 for button in multi_value_buttons:
     value = form.getvalue(button)
-    if(value != "don't care"):
+    if(value is not None and value is not "don't care"):
         query_parts = add_to_query(query_parts, fields[button], value, 'yes')
         #             The field name            ^^^ 
         #             The word we are looking for               ^^^
@@ -182,7 +181,7 @@ for button in multi_value_buttons:
 # or absent)
 for button in no_value_buttons:
     value = form.getvalue(button)
-    if(value != "don't care"):
+    if(value is not None and value is not "don't care"):
         query_parts = add_to_query(query_parts, fields[button], '', value)
         #             The field name            ^^^ 
         #             The word we are looking for (blank)       ^^^
@@ -190,7 +189,7 @@ for button in no_value_buttons:
 
         
 query   = combine_query_parts(query_parts)
-results = run_query(collection, query)
+(n_results, results) = run_query(collection, query)
 
 
 # Construct some HTML
@@ -200,7 +199,7 @@ html += "    <title>Result</title>\n"
 html += "  </head>\n"
 html += "  <body>\n"
 html += "    <h1>Result</h1>\n"
-html += "<pre>"
+html += "    <pre>\n"
 # Iterate over the returned entries
 for result in results:
     # In reality you need to do something here to start a row in your HTML table
@@ -210,10 +209,14 @@ for result in results:
         # Here you would test for the keys of interest that you want to use in the summary
         # table and print the html table data for those
         if (len(key)):
-            print(key + ':' + value)
-html += "</pre>"
+            html += key + ':' + value + "\n"
+html += "    </pre>\n"
+html += "    <p>\n";
+html += "      Number of hits: " + str(n_results) + "\n";
+html += "    </p>\n";
 html += "  </body>\n"
 html += "</html>\n"
 
 # Print the output page
 print ("Content-Type: text/html\n")
+print (html)

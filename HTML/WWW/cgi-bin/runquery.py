@@ -6,6 +6,7 @@ import re
 import json
 import cgitb
 cgitb.enable()
+
 #-------------------------------------------------------------------------------
 def mongo_connect(user, password, host, path, clusterName, collectionName):
     """

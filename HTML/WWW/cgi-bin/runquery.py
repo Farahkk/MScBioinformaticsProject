@@ -4,6 +4,8 @@ from pymongo import MongoClient
 import sys
 import re
 import json
+import cgitb
+cgitb.enable()
 
 #-------------------------------------------------------------------------------
 def mongo_connect(user, password, host, path, clusterName, collectionName):
@@ -219,4 +221,6 @@ html += "</html>\n"
 
 # Print the output page
 print ("Content-Type: text/html\n")
+html = html.encode('ascii', errors='ignore');
+html = html.decode()
 print (html)

@@ -163,7 +163,7 @@ form = cgi.FieldStorage()
 # Step through the yes/no buttons
 for button in yes_no_buttons:
     value = form.getvalue(button)
-    if(value is not None and value is not "don't care"):
+    if(value is not None and value != "don't care"):
         query_parts = add_to_query(query_parts, fields[button], keywords[button], value)
         #             The field name            ^^^ 
         #             The word we are looking for               ^^^
@@ -173,7 +173,7 @@ for button in yes_no_buttons:
 # Where we have other values which must be in the search we can work in the same way.
 for button in multi_value_buttons:
     value = form.getvalue(button)
-    if(value is not None and value is not "don't care"):
+    if(value is not None and value != "don't care"):
         query_parts = add_to_query(query_parts, fields[button], value, 'yes')
         #             The field name            ^^^ 
         #             The word we are looking for               ^^^
@@ -183,7 +183,7 @@ for button in multi_value_buttons:
 # or absent)
 for button in no_value_buttons:
     value = form.getvalue(button)
-    if(value is not None and value is not "don't care"):
+    if(value is not None and value != "don't care"):
         query_parts = add_to_query(query_parts, fields[button], '', value)
         #             The field name            ^^^ 
         #             The word we are looking for (blank)       ^^^

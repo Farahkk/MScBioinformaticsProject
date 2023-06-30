@@ -133,10 +133,35 @@ you have been using previously.
 # A list of the Yes/No/Don't care buttons' names in the HTML
 yes_no_buttons = ['conj',
                   'bispecific',
-                  'fusion']
+                  'fusion',
+                  'potential N-linked glycosylation sites',
+                  'confirmed N-linked glycosylation sites',
+                  'potential O-linked glycosylation sites',
+                  'confirmed O-linked glycosylation sites',
+                  'hc_436-488',
+                  'hc_avoid_free_thiol',
+                  'hc_artificial_disulfide',
+                  'hc_bispecific_formation',
+                  'hc_bispecific_formation_with_light_chain',
+                  'hc_change isoelectric_point',
+                  'hc_cloning',
+                  'hc_conjugation_site',
+                  'hc_controlled_Fab-arm_exchange',
+                  'hc_disulfide',
+                  'hc_disulfide_with_CL',
+                  'hc_disulfide_with_H[1]',
+                  'hc_disulfide_with_H[2]',
+
+                  
+                  ]
 
 # A list of the multi-value buttons (i.e. not just yes/no and the word MUST appear)
-multi_value_buttons = ['Source_of_the_antibody']
+multi_value_buttons = ['Source_of_the_antibody', 
+                        'Antibody_type_Heavy_Chain', 
+                        'Antibody_type_Light_Chain', 
+                        'Special_format_chains',
+                        'Heavy_Chain_Confirmed_PTM',
+                        'Light_Chain_Chain_Confirmed_PTM']
 
 # A list of buttons where we simply require the keyword to appear (or not appear)
 # in the JSON, but don't care about the value (you don't have this at the moment in your HTML)
@@ -147,12 +172,67 @@ fields = {'conj':'Format',
           'bispecific':'Format',
           'fusion':'Format',
           'Source_of_the_antibody':'Format',
+          'Antibody_type_Heavy_Chain':'Type', 
+          'Antibody_type_Light_Chain':'Type',
+          'Special_format_chains':'Type',
+          'Heavy_Chain_Confirmed_PTM':'HeavyConfirmedPTM'
+          'Light_Chain_Chain_Confirmed_PTM':'LightConfirmedPTM',
+          'hc_436-488':'MutationH',
+          'hc_avoid_free_thiol':'MutationH',
+          'hc_artificial_disulfide':'MutationH',
+          'hc_bispecific_formation':'MutationH',
+          'hc_bispecific_formation_with_light_chain':'MutationH',
+          'hc_change isoelectric_point':'MutationH',
+          'hc_cloning':'MutationH',
+          'hc_conjugation_site':'MutationH',
+          'hc_controlled_Fab-arm_exchange':'MutationH',
+          'hc_disulfide':'MutationH',
+          'hc_disulfide_with_CL':'MutationH',
+          'hc_disulfide_with_H[1]':'MutationH',
+          'hc_disulfide_with_H[2]':'MutationH',
+
+
+
+
+
+
+
           'has_mutation':'MutationH'}
 
 # A dictionary mapping the button name to the keyword we will search for
 keywords = {'conj':'conjugated',
             'bispecific':'bispecific',
-            'fusion':'fusion'}
+            'fusion':'fusion',
+            'hc_pot_n-linked':'potential N-linked glycosylation sites',
+            'hc_con_n-linked':'confirmed N-linked glycosylation sites',
+            'hc_pot_o-linked':'potential O-linked glycosylation sites',
+            'hc_con_o-linked':'confirmed O-linked glycosylation sites',
+            'lc_pot_n-linked':'potential N-linked glycosylation sites',
+            'lc_con_n-linked':'confirmed N-linked glycosylation sites',
+            'lc_pot_o-linked':'potential O-linked glycosylation sites',
+            'lc_con_o-linked':'confirmed O-linked glycosylation sites',
+            'hc_436-488':'436-488 now matches IgG3',
+            'hc_avoid_free_thiol':'avoid free thiol',
+            'hc_artificial_disulfide':'artificial disulfide',
+            'hc_bispecific_formation':'bispecific formation',
+            'hc_bispecific_formation_with_light_chain':'bispecific formation with light chain'
+            'hc_change isoelectric_point':'change isoelectric point'
+            'hc_cloning':'cloning',
+            'hc_conjugation_site':'conjugation site',
+            'hc_controlled_Fab-arm_exchange':'controlled Fab-arm exchange',
+            'hc_disulfide':'disulfide',
+            'hc_disulfide_with_CL':'disulfide with CL',
+            'hc_disulfide_with_H[1]':'disulfide with H[1]',
+            'hc_disulfide_with_H[2]':'disulfide with H[2]',
+
+
+
+
+
+
+
+
+            }
 
 # Initialize the list of things we will query on
 query_parts = []

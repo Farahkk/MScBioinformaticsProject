@@ -29,14 +29,21 @@ def mongo_connect(user, password, host, path, clusterName, collectionName):
 def add_to_query(query_parts, key, value, yesno):
     query = ''
     if yesno == "yes":
-        query = "{\"%s\" : {\"$regex\" : \".*%s.*\"}}" % (key, value)
+        query  = "{ \"$or\" : [\n"    #Initialize ORing
+        query += "{\"%s\" : {\"$regex\" : \".*%s.*\"}}" % (key, value)
+        for i in range(1,6):
+            query += ",\n {\"%s[%d]\" : {\"$regex\" : \".*%s.*\"}}" % (key, i, value)
+        query += "\n] }\n";
     elif yesno == "no":
-        query = "{\"%s\" : {\"$not\": {\"$regex\" : \".*%s.*\"}}}" % (key, value)
+        query  = "{ \"$and\" : [\n"    #Initialize ANDing
+        query += "{\"%s\" : {\"$not\": {\"$regex\" : \".*%s.*\"}}}" % (key, value)
+        for i in range(1,6):
+            query += ",\n {\"%s[%d]\" : {\"$not\": {\"$regex\" : \".*%s.*\"}}}" % (key, i, value)
+        query += "\n] }\n";
 
     if query != "":
         query_parts.append(query)
     return query_parts;
-
 #-------------------------------------------------------------------------------
 # Combines the individual query parts into one query
 def combine_query_parts(query_parts):

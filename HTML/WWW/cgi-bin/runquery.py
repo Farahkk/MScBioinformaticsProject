@@ -29,14 +29,21 @@ def mongo_connect(user, password, host, path, clusterName, collectionName):
 def add_to_query(query_parts, key, value, yesno):
     query = ''
     if yesno == "yes":
-        query = "{\"%s\" : {\"$regex\" : \".*%s.*\"}}" % (key, value)
+        query  = "{ \"$or\" : [\n"    #Initialize ORing
+        query += "{\"%s\" : {\"$regex\" : \".*%s.*\"}}" % (key, value)
+        for i in range(1,6):
+            query += ",\n {\"%s[%d]\" : {\"$regex\" : \".*%s.*\"}}" % (key, i, value)
+        query += "\n] }\n";
     elif yesno == "no":
-        query = "{\"%s\" : {\"$not\": {\"$regex\" : \".*%s.*\"}}}" % (key, value)
+        query  = "{ \"$and\" : [\n"    #Initialize ANDing
+        query += "{\"%s\" : {\"$not\": {\"$regex\" : \".*%s.*\"}}}" % (key, value)
+        for i in range(1,6):
+            query += ",\n {\"%s[%d]\" : {\"$not\": {\"$regex\" : \".*%s.*\"}}}" % (key, i, value)
+        query += "\n] }\n";
 
     if query != "":
         query_parts.append(query)
     return query_parts;
-
 #-------------------------------------------------------------------------------
 # Combines the individual query parts into one query
 def combine_query_parts(query_parts):
@@ -151,9 +158,58 @@ yes_no_buttons = ['conj',
                   'hc_disulfide_with_CL',
                   'hc_disulfide_with_H[1]',
                   'hc_disulfide_with_H[2]',
-
-                  
-                  ]
+                  'hc_disulfide_with_Heavy[1]',
+                  'hc_disulfide_with_Heavy[3]',
+                  'hc_disulfide_with_L[2]',
+                  'hc_disulfides_with_light_chain',
+                  'hc_eliminate_C1q_binding',
+                  'hc_Enforce_pairing',
+                  'hc_Enhance_ADCC, Enhance_CD16_binding',
+                  'hc_enhance-Fc-effector_functions_and_eliminate_complement_binding',
+                  'hc_enhance_FcGamma-RIIB_binding',
+                  'hc_enhance_FcRn_binding',
+                  'hc_enhancing_CD16A_binding',
+                  'hc_extend_half-life',
+                  'hc_extend_half_life',
+                  'hc_heterodimer_formation',
+                  'hc_heterodimer_formation_hole',
+                  'hc_heterodimer_formation_knob',
+                  'hc_heterodimer_knob_hole',
+                  'hc_hexabody_formation',
+                  'hc_hexamer_formation',
+                  'hc_Hinge_stabilization',
+                  'hc_hinge_stabilization',
+                  'hc_improve_affinity',
+                  'hc_increase_stability',
+                  'hc_match_last_2_residues_VH',
+                  'hc_prevent_FcGammaR_binding',
+                  'hc_prevent_oxidation',
+                  'hc_Protein_A_binding',
+                  'hc_Reduce_ADCC',
+                  'hc_Reduce_ADCC_and_CDC',
+                  'hc_reduce_ADCC_and_CDC',
+                  'hc_Reduce_ADCC,_CDC_and_ADCP',
+                  'hc_reduce_aggregation_and_modulate_affinity',
+                  'hc_Reduce_C1q_binding',
+                  'hc_Reduce_CDC',
+                  'hc_reduce_deamidation',
+                  'hc_reduce_FcRn_binding',
+                  'hc_reduce_FcGammaR_binding',
+                  'hc_reduce_FcGammaR_binding,_matches_IgG2*02',
+                  'hc_reduce_FcGammaR_and_C1q_binding',
+                  'hc_reduce_FcGammaR_and_C1q_binding,_reduce_antibody-dependent_disease_enhancement',
+                  'hc_reduce_Protein_A_binding',
+                  'hc_reduce_proteolysis',
+                  'hc_retain_only_FcGamma-RIIB_binding',
+                  'hc_remove_CHS',
+                  'hc_remove_disulfide',
+                  'hc_remove_glycosylation_site',
+                  'hc_remove_unpaired_cysteine',
+                  'hc_remove_unpaired_sulfhydryl_group',
+                  'hc_stabilization_at_low_pH',
+                  'hc_TM_reduce_antibody-dependent_disease_enhancement',
+                  'hc_transferrin_receptor_binding_epitope',
+                  'hc_unpairs_LC_cys_for_conjugation_site']
 
 # A list of the multi-value buttons (i.e. not just yes/no and the word MUST appear)
 multi_value_buttons = ['Source_of_the_antibody', 
@@ -190,13 +246,58 @@ fields = {'conj':'Format',
           'hc_disulfide_with_CL':'MutationH',
           'hc_disulfide_with_H[1]':'MutationH',
           'hc_disulfide_with_H[2]':'MutationH',
-
-
-
-
-
-
-
+          'hc_disulfide_with_Heavy[1]':'MutationH',
+          'hc_disulfide_with_Heavy[3]':'MutationH',
+          'hc_disulfide_with_L[2]':'MutationH',
+          'hc_disulfides_with_light_chain':'MutationH',
+          'hc_eliminate_C1q_binding':'MutationH',
+          'hc_Enforce_pairing':'MutationH',
+          'hc_Enhance_ADCC, Enhance_CD16_binding':'MutationH',
+          'hc_enhance-Fc-effector_functions_and_eliminate_complement_binding':'MutationH',
+          'hc_enhance_FcGamma-RIIB_binding':'MutationH',
+          'hc_enhance_FcRn_binding':'MutationH',
+          'hc_enhancing_CD16A_binding':'MutationH',
+          'hc_extend_half-life':'MutationH',
+          'hc_extend_half_life':'MutationH',
+          'hc_heterodimer_formation':'MutationH',
+          'hc_heterodimer_formation_hole':'MutationH',
+          'hc_heterodimer_formation_knob':'MutationH',
+          'hc_heterodimer_knob_hole':'MutationH',
+          'hc_hexabody_formation':'MutationH',
+          'hc_hexamer_formation':'MutationH',
+          'hc_Hinge_stabilization':'MutationH',
+          'hc_hinge_stabilization':'MutationH',
+          'hc_improve_affinity':'MutationH',
+          'hc_increase_stability':'MutationH',
+          'hc_match_last_2_residues_VH':'MutationH',
+          'hc_prevent_FcGammaR_binding':'MutationH',
+          'hc_prevent_oxidation':'MutationH',
+          'hc_Protein_A_binding':'MutationH',
+          'hc_Reduce_ADCC':'MutationH',
+          'hc_Reduce_ADCC_and_CDC':'MutationH',
+          'hc_reduce_ADCC_and_CDC':'MutationH',
+          'hc_Reduce_ADCC,_CDC_and_ADCP':'MutationH',
+          'hc_reduce_aggregation_and_modulate_affinity':'MutationH',
+          'hc_Reduce_C1q_binding':'MutationH',
+          'hc_Reduce_CDC':'MutationH',
+          'hc_reduce_deamidation':'MutationH',
+          'hc_reduce_FcRn_binding':'MutationH',
+          'hc_reduce_FcGammaR_binding':'MutationH',
+          'hc_reduce_FcGammaR_binding,_matches_IgG2*02':'MutationH',
+          'hc_reduce_FcGammaR_and_C1q_binding':'MutationH',
+          'hc_reduce_FcGammaR_and_C1q_binding,_reduce_antibody-dependent_disease_enhancement':'MutationH',
+          'hc_reduce_Protein_A_binding':'MutationH',
+          'hc_reduce_proteolysis':'MutationH',
+          'hc_retain_only_FcGamma-RIIB_binding':'MutationH',
+          'hc_remove_CHS':'MutationH',
+          'hc_remove_disulfide':'MutationH',
+          'hc_remove_glycosylation_site':'MutationH',
+          'hc_remove_unpaired_cysteine':'MutationH',
+          'hc_remove_unpaired_sulfhydryl_group':'MutationH',
+          'hc_stabilization_at_low_pH':'MutationH',
+          'hc_TM_reduce_antibody-dependent_disease_enhancement':'MutationH',
+          'hc_transferrin_receptor_binding_epitope':'MutationH',
+          'hc_unpairs_LC_cys_for_conjugation_site':'MutationH',
           'has_mutation':'MutationH'}
 
 # A dictionary mapping the button name to the keyword we will search for
@@ -224,15 +325,58 @@ keywords = {'conj':'conjugated',
             'hc_disulfide_with_CL':'disulfide with CL',
             'hc_disulfide_with_H[1]':'disulfide with H[1]',
             'hc_disulfide_with_H[2]':'disulfide with H[2]',
-
-
-
-
-
-
-
-
-            }
+            'hc_disulfide_with_Heavy[1]':'disulfide with Heavy[1]',
+            'hc_disulfide_with_Heavy[3]':'disulfide with Heavy[3]',
+            'hc_disulfide_with_L[2]':'disulfide with L[2]',
+            'hc_disulfides_with_light_chain':'disulfides with light chain',
+            'hc_eliminate_C1q_binding':'eliminate C1q binding',
+            'hc_Enforce_pairing':'Enforce pairing',
+            'hc_Enhance_ADCC, Enhance_CD16_binding':'Enhance ADCC, Enhance CD16 binding',
+            'hc_enhance-Fc-effector_functions_and_eliminate_complement_binding':'enhance Fc-effector functions and eliminate complement binding',
+            'hc_enhance_FcGamma-RIIB_binding':'enhance FcGamma-RIIB binding',
+            'hc_enhance_FcRn_binding':'enhance FcRn binding',
+            'hc_enhancing_CD16A_binding':'enhancing CD16A binding',
+            'hc_extend_half-life':'extend half-life',
+            'hc_extend_half_life':'extend half life',
+            'hc_heterodimer_formation':'heterodimer formation',
+            'hc_heterodimer_formation_hole':'heterodimer formation hole',
+            'hc_heterodimer_formation_knob':'heterodimer formation knob',
+            'hc_heterodimer_knob_hole':'heterodimer knob hole',
+            'hc_hexabody_formation':'hc_hexabody_formation',
+            'hc_hexamer_formation':'hexamer formation',
+            'hc_Hinge_stabilization':'Hinge stabilization',
+            'hc_hinge_stabilization':'hinge stabilization',
+            'hc_improve_affinity':'improve affinity',
+            'hc_increase_stability':'increase stability',
+            'hc_match_last_2_residues_VH':'match last 2 residues VH',
+            'hc_prevent_FcGammaR_binding':'prevent FcGammaR binding',
+            'hc_prevent_oxidation':'prevent oxidation',
+            'hc_Protein_A_binding':'prevent Protein A binding',
+            'hc_Reduce_ADCC':'Reduce ADCC',
+            'hc_Reduce_ADCC_and_CDC':'Reduce ADCC and CDC',
+            'hc_reduce_ADCC_and_CDC':'reduce ADCC and CDC',
+            'hc_Reduce_ADCC,_CDC_and_ADCP':'Reduce ADCC, CDC and ADCP',
+            'hc_reduce_aggregation_and_modulate_affinity':'reduce aggregation and modulate affinity',
+            'hc_Reduce_C1q_binding':'Reduce C1q binding',
+            'hc_Reduce_CDC':'Reduce CDC',
+            'hc_reduce_deamidation':'reduce deamidation',
+            'hc_reduce_FcRn_binding':'reduce FcRn binding',
+            'hc_reduce_FcGammaR_binding':'reduce FcGammaR binding',
+            'hc_reduce_FcGammaR_binding,_matches_IgG2*02':'reduce FcGammaR binding, matches IgG2*02',
+            'hc_reduce_FcGammaR_and_C1q_binding':'reduce FcGammaR and C1q binding',
+            'hc_reduce_FcGammaR_and_C1q_binding,_reduce_antibody-dependent_disease_enhancement':'reduce FcGammaR and C1q binding, reduce antibody-dependent disease enhancement',
+            'hc_reduce_Protein_A_binding':'reduce Protein A binding',
+            'hc_reduce_proteolysis':'reduce proteolysis',
+            'hc_retain_only_FcGamma-RIIB_binding':'retain only FcGamma-RIIB binding',
+            'hc_remove_CHS':'remove CHS',
+            'hc_remove_disulfide':'remove disulfide',
+            'hc_remove_glycosylation_site':'remove glycosylation site',
+            'hc_remove_unpaired_cysteine':'remove unpaired cysteine',
+            'hc_remove_unpaired_sulfhydryl_group':'remove unpaired sulfhydryl group',
+            'hc_stabilization_at_low_pH':'stabilization at low pH',
+            'hc_TM_reduce_antibody-dependent_disease_enhancement':'TM reduce antibody-dependent disease enhancement',
+            'hc_transferrin_receptor_binding_epitope':'transferrin receptor binding epitope',
+            'hc_unpairs_LC_cys_for_conjugation_site':'unpairs LC cys for conjugation site'}
 
 # Initialize the list of things we will query on
 query_parts = []

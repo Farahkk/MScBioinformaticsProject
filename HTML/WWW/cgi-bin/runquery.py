@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import sys
 import re
 import json
+#to send the python error messages to the Web browser
 import cgitb
 cgitb.enable()
 

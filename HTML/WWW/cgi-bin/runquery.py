@@ -322,7 +322,7 @@ fields = {'conj':'Format',
           'hc_TM_reduce_antibody-dependent_disease_enhancement':'MutationH',
           'hc_transferrin_receptor_binding_epitope':'MutationH',
           'hc_unpairs_LC_cys_for_conjugation_site':'MutationH',
-          'has_mutation':'MutationH'
+          'has_mutation':'MutationH',
           'lc_bispecific_formation':'MutationL',
           'lc_bispecific_formation_with_heavy_chain':'MutationL',
           'lc_change_disulfide_with_CL':'MutationL',
@@ -332,7 +332,7 @@ fields = {'conj':'Format',
           'lc_match_first_2_residues_of_CH1_IGHG1*01':'MutationL',
           'lc_prevent_deamidation':'MutationL',
           'lc_remove_disulphide':'MutationL',
-          'lc_remove_glycosylation_site':'MutationL'
+          'lc_remove_glycosylation_site':'MutationL',
           'CDRs_Source_for_humanized_antibodies':'CDRSource'}
 
 # A dictionary mapping the button name to the keyword we will search for

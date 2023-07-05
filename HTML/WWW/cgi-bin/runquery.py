@@ -214,7 +214,17 @@ yes_no_buttons = ['conj',
                   'hc_stabilization_at_low_pH',
                   'hc_TM_reduce_antibody-dependent_disease_enhancement',
                   'hc_transferrin_receptor_binding_epitope',
-                  'hc_unpairs_LC_cys_for_conjugation_site']
+                  'hc_unpairs_LC_cys_for_conjugation_site',
+                  'lc_bispecific_formation',
+                  'lc_bispecific_formation_with_heavy_chain',
+                  'lc_change_disulfide_with_CL',
+                  'lc_disulfide',
+                  'lc_disulfides_with_heavy_chain',
+                  'lc_Enforce_pairing',
+                  'lc_match_first_2_residues_of_CH1_IGHG1*01',
+                  'lc_prevent_deamidation',
+                  'lc_remove_disulphide',
+                  'lc_remove_glycosylation_site']
 
 # A list of the multi-value buttons (i.e. not just yes/no and the word MUST appear)
 multi_value_buttons = ['Source_of_the_antibody', 
@@ -222,7 +232,8 @@ multi_value_buttons = ['Source_of_the_antibody',
                        'Antibody_type_Light_Chain', 
                        'Special_format_chains',
                        'Heavy_Chain_Confirmed_PTM',
-                       'Light_Chain_Confirmed_PTM']
+                       'Light_Chain_Confirmed_PTM',
+                       'CDRs_Source_for_humanized_antibodies']
 
 # A list of buttons where we simply require the keyword to appear (or not appear)
 # in the JSON, but don't care about the value (you don't have this at the moment in your HTML)
@@ -311,7 +322,18 @@ fields = {'conj':'Format',
           'hc_TM_reduce_antibody-dependent_disease_enhancement':'MutationH',
           'hc_transferrin_receptor_binding_epitope':'MutationH',
           'hc_unpairs_LC_cys_for_conjugation_site':'MutationH',
-          'has_mutation':'MutationH'}
+          'has_mutation':'MutationH'
+          'lc_bispecific_formation':'MutationL',
+          'lc_bispecific_formation_with_heavy_chain':'MutationL',
+          'lc_change_disulfide_with_CL':'MutationL',
+          'lc_disulfide':'MutationL',
+          'lc_disulfides_with_heavy_chain':'MutationL',
+          'lc_Enforce_pairing':'MutationL',
+          'lc_match_first_2_residues_of_CH1_IGHG1*01':'MutationL',
+          'lc_prevent_deamidation':'MutationL',
+          'lc_remove_disulphide':'MutationL',
+          'lc_remove_glycosylation_site':'MutationL'
+          'CDRs_Source_for_humanized_antibodies':'CDRSource'}
 
 # A dictionary mapping the button name to the keyword we will search for
 keywords = {'conj':'conjugated',
@@ -389,7 +411,17 @@ keywords = {'conj':'conjugated',
             'hc_stabilization_at_low_pH':'stabilization at low pH',
             'hc_TM_reduce_antibody-dependent_disease_enhancement':'TM reduce antibody-dependent disease enhancement',
             'hc_transferrin_receptor_binding_epitope':'transferrin receptor binding epitope',
-            'hc_unpairs_LC_cys_for_conjugation_site':'unpairs LC cys for conjugation site'}
+            'hc_unpairs_LC_cys_for_conjugation_site':'unpairs LC cys for conjugation site',
+            'lc_bispecific_formation':'bispecific formation',
+            'lc_bispecific_formation_with_heavy_chain':'bispecific formation with heavy chain',
+            'lc_change_disulfide_with_CL':'change disulfide with CL',
+            'lc_disulfide':'disulfide',
+            'lc_disulfides_with_heavy_chain':'disulfides with heavy chain',
+            'lc_Enforce_pairing':'Enforce pairing',
+            'lc_match_first_2_residues_of_CH1_IGHG1*01':'match first 2 residues of CH1 IGHG1*01',
+            'lc_prevent_deamidation':'prevent deamidation',
+            'lc_remove_disulphide':'remove disulphide',
+            'lc_remove_glycosylation_site':'remove glycosylation site'}
 
 # Initialize the list of things we will query on
 query_parts = []

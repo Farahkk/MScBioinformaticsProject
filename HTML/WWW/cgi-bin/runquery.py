@@ -469,7 +469,7 @@ html += "    <pre>\n"
 for result in results:
     # In reality you need to do something here to start a row in your HTML table
 
-print("""
+ print("""
 <html>
 
 <p><b>Summary of hits from the database search:</b><br /></p>
@@ -506,7 +506,7 @@ print("""
 </html>
 """)
     # Iterate over the key/value pairs
-    for key,value in result.items():
+for key,value in result.items():
         # Here you would test for the keys of interest that you want to use in the summary
         # table and print the html table data for those
         if (len(key)):

@@ -235,7 +235,9 @@ multi_value_buttons = ['Source_of_the_antibody',
 # in the JSON, but don't care about the value (you don't have this at the moment in your HTML)
 no_value_buttons = ['has_mutation', 
                     'hc_pot_o-linked',
-                    'hc_con_o-linked']
+                    'hc_con_o-linked',
+                    'lc_pot_o-linked',
+                    'lc_con_o-linked']
 
 # A dictionary mapping the button name to the field we need to search
 fields = {'conj':'Format',

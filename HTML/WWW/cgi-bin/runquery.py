@@ -47,7 +47,7 @@ def mongo_connect(user, password, host, path, clusterName, collectionName):
     return query_parts;'''
 
 
-#Also, here is an alternative version of add_to_query() which makes the searches case insensitive,
+#An alternative version of add_to_query() which makes the searches case insensitive,
 #so you don't need to worry about 'reduce' vs 'Reduce', etc.
 
 def add_to_query(query_parts, key, value, yesno):
@@ -175,7 +175,7 @@ yes_no_buttons = ['conj',
                   'hc_artificial_disulfide',
                   'hc_bispecific_formation',
                   'hc_bispecific_formation_with_light_chain',
-                  'hc_change isoelectric_point',
+                  'hc_change_isoelectric_point',
                   'hc_cloning',
                   'hc_conjugation_site',
                   'hc_controlled_Fab-arm_exchange',
@@ -282,7 +282,7 @@ fields = {'conj':'Format',
           'hc_artificial_disulfide':'MutationH',
           'hc_bispecific_formation':'MutationH',
           'hc_bispecific_formation_with_light_chain':'MutationH',
-          'hc_change isoelectric_point':'MutationH',
+          'hc_change_isoelectric_point':'MutationH',
           'hc_cloning':'MutationH',
           'hc_conjugation_site':'MutationH',
           'hc_controlled_Fab-arm_exchange':'MutationH',
@@ -368,7 +368,7 @@ keywords = {'conj':'conjugated',
             'hc_artificial_disulfide':'artificial disulfide',
             'hc_bispecific_formation':'bispecific formation',
             'hc_bispecific_formation_with_light_chain':'bispecific formation with light chain',
-            'hc_change isoelectric_point':'change isoelectric point',
+            'hc_change_isoelectric_point':'change isoelectric point',
             'hc_cloning':'cloning',
             'hc_conjugation_site':'conjugation site',
             'hc_controlled_Fab-arm_exchange':'controlled Fab-arm exchange',

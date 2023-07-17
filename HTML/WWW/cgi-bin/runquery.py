@@ -170,7 +170,7 @@ yes_no_buttons = ['conj',
                   'hc_con_n-linked',
                   'lc_pot_n-linked',
                   'lc_con_n-linked',
-                  'hc_436-488',
+                  'hc_436-488 now matches IgG3',
                   'hc_avoid_free_thiol',
                   'hc_artificial_disulfide',
                   'hc_bispecific_formation',
@@ -263,6 +263,18 @@ no_value_buttons = ['has_mutation',
                     'lc_pot_o-linked',
                     'lc_con_o-linked']
 
+# A list of buttons where we are searching for a specific piece of text within a field and where
+# we have a whole set of buttons searching the same field for different pieces of text
+
+#So you have a "list of dictionaries of lists". The first item in this example is:
+#'hc_Enhance_ADCC':['MutationH', 'Enhance ADCC'],
+#'hc_Enhance_ADCC' is the button name
+#'MutationH' is the field to search
+#'Enhance ADCC' is the value for which we are searching
+
+alternative_value_buttons = {'hc_Enhance_ADCC':['MutationH', 'Enhance ADCC'],
+                             'hc_Reduce_ADCC':['MutationH', 'Reduce ADCC']}
+
 # A dictionary mapping the button name to the field we need to search
 fields = {'conj':'Format',
           'bispecific':'Format',
@@ -277,7 +289,7 @@ fields = {'conj':'Format',
           'lc_con_n-linked':'LightConfirmedNGlycos',
           'Heavy_Chain_Confirmed_PTM':'HeavyConfirmedPTM',
           'Light_Chain_Confirmed_PTM':'LightConfirmedPTM',
-          'hc_436-488':'MutationH',
+          'hc_436-488_now_matches_IgG3':'MutationH',
           'hc_avoid_free_thiol':'MutationH',
           'hc_artificial_disulfide':'MutationH',
           'hc_bispecific_formation':'MutationH',
@@ -474,6 +486,14 @@ for button in no_value_buttons:
         #             The word we are looking for (blank)       ^^^
         #             It isn't "don't care", must be yes or no      ^^^
 
+# Step through the alternative_value_buttons where we have multiple buttons using the
+# same field, but looking for different pieces of text
+for button in alternative_value_buttons:
+    value = form.getvalue(button)
+    if(value is not None and value != "don't care"):
+        query_parts = add_to_query(query_parts,
+                                   alternative_value_buttons[button][0],
+                                   alternative_value_buttons[button][1], value)
         
 query   = combine_query_parts(query_parts)
 (n_results, results) = run_query(collection, query)

@@ -269,7 +269,8 @@ no_value_buttons = ['has_mutation',
 #'Enhance ADCC' is the value for which we are searching
 
 alternative_value_buttons = {'hc_Enhance_ADCC':['MutationH', 'Enhance ADCC'],
-                             'hc_Reduce_ADCC':['MutationH', 'Reduce ADCC']}
+                             'hc_Reduce_ADCC':['MutationH', 'Reduce ADCC'],
+                             }
 
 # A dictionary mapping the button name to the field we need to search
 fields = {'conj':'Format',
@@ -377,9 +378,9 @@ keywords = {'conj':'conjugated',
             'hc_controlled_Fab-arm_exchange':'controlled Fab-arm exchange',
             'hc_disulfide':'disulfide',
             'hc_disulfide_with_CL':'disulfide with CL',
-            'hc_disulfide_with_H[1]':'disulfide with H',
-            'hc_disulfide_with_Heavy[1]':'disulfide with Heavy',
-            'hc_disulfide_with_L[2]':'disulfide with L',
+            'hc_disulfide_with_H':'disulfide with H',
+            'hc_disulfide_with_Heavy':'disulfide with Heavy',
+            'hc_disulfide_with_L':'disulfide with L',
             'hc_disulfides_with_light_chain':'disulfides with light chain',
             'hc_eliminate_C1q_binding':'eliminate C1q binding',
             'hc_Enforce_pairing':'Enforce pairing',

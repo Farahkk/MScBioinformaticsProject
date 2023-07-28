@@ -514,6 +514,9 @@ keywords = {'conj':'conjugated',
 # Initialize the list of things we will query on
 query_parts = []
 
+# Print the output page
+print ("Content-Type: text/html\n")
+
 # Obtain the information from the form
 form = cgi.FieldStorage()
 
@@ -521,6 +524,7 @@ form = cgi.FieldStorage()
 for button in yes_no_buttons:
     value = form.getvalue(button)
     if(value is not None and value != "don't care"):
+        print(fields[button] + ' ' + keywords[button])
         query_parts = add_to_query(query_parts, fields[button], keywords[button], value)
         #             The field name            ^^^ 
         #             The word we are looking for               ^^^
@@ -585,8 +589,7 @@ html += "    </p>\n";
 html += "  </body>\n"
 html += "</html>\n"
 
-# Print the output page
-print ("Content-Type: text/html\n")
+
 # The next two lines strip out any non-standard characters
 html = html.encode('ascii', errors='ignore');
 html = html.decode()

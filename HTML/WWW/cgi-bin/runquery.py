@@ -171,10 +171,6 @@ yes_no_buttons = ['conj',
                   'hc_con_n-linked',
                   'lc_pot_n-linked',
                   'lc_con_n-linked',
-                  'hc_pot_o-linked',
-                  'hc_con_o-linked',
-                  'lc_pot_o-linked',
-                  'lc_con_o-linked',
                   'hc_avoid_free_thiol',
                   'hc_artificial_disulfide',
                   'hc_bispecific_formation',
@@ -258,7 +254,11 @@ multi_value_buttons = ['Source_of_the_antibody',
 
 # A list of buttons where we simply require the keyword to appear (or not appear)
 # in the JSON, but don't care about the value (you don't have this at the moment in your HTML)
-no_value_buttons = ['has_mutation']
+no_value_buttons = ['has_mutation',
+                    'hc_pot_o-linked',
+                    'hc_con_o-linked',
+                    'lc_pot_o-linked',
+                    'lc_con_o-linked']
 
 # A list of buttons where we are searching for a specific piece of text within a field and where
 # we have a whole set of buttons searching the same field for different pieces of text
@@ -528,7 +528,6 @@ form = cgi.FieldStorage()
 for button in yes_no_buttons:
     value = form.getvalue(button)
     if(value is not None and value != "don't care"):
-        print(fields[button] + ' ' + keywords[button])
         query_parts = add_to_query(query_parts, fields[button], keywords[button], value)
         #             The field name            ^^^ 
         #             The word we are looking for               ^^^
@@ -581,11 +580,12 @@ for result in results:
     # In reality you need to do something here to start a row in your HTML table
 
     # Iterate over the key/value pairs
- for key,value in result.items():
+    for key,value in result.items():
         # Here you would test for the keys of interest that you want to use in the summary
         # table and print the html table data for those
         if (len(key)):
             html += key + ':' + value + "\n"
+
 html += "    </pre>\n"
 html += "    <p>\n";
 html += "      Number of hits: " + str(n_results) + "\n";

@@ -171,6 +171,10 @@ yes_no_buttons = ['conj',
                   'hc_con_n-linked',
                   'lc_pot_n-linked',
                   'lc_con_n-linked',
+                  'hc_pot_o-linked',
+                  'hc_con_o-linked',
+                  'lc_pot_o-linked',
+                  'lc_con_o-linked',
                   'hc_avoid_free_thiol',
                   'hc_artificial_disulfide',
                   'hc_bispecific_formation',
@@ -254,11 +258,7 @@ multi_value_buttons = ['Source_of_the_antibody',
 
 # A list of buttons where we simply require the keyword to appear (or not appear)
 # in the JSON, but don't care about the value (you don't have this at the moment in your HTML)
-no_value_buttons = ['has_mutation', 
-                    'hc_pot_o-linked',
-                    'hc_con_o-linked',
-                    'lc_pot_o-linked',
-                    'lc_con_o-linked']
+no_value_buttons = ['has_mutation']
 
 # A list of buttons where we are searching for a specific piece of text within a field and where
 # we have a whole set of buttons searching the same field for different pieces of text

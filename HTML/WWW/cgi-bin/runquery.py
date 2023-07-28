@@ -569,7 +569,7 @@ html += "    <h1>Result</h1>\n"
 html += "    <pre>\n"
 
 # Iterate over the key/value pairs
- for key,value in result.items():
+for key,value in result.items():
         # Here you would test for the keys of interest that you want to use in the summary
         # table and print the html table data for those
         if (len(key)):

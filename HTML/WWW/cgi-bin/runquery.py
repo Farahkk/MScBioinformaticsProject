@@ -568,19 +568,6 @@ html += "  <body>\n"
 html += "    <h1>Result</h1>\n"
 html += "    <pre>\n"
 
-# Iterate over the key/value pairs
- for key,value in result.items():
-        # Here you would test for the keys of interest that you want to use in the summary
-        # table and print the html table data for those
-        if (len(key)):
-            html += key + ':' + value + "\n"
-html += "    </pre>\n"
-html += "    <p>\n";
-html += "      Number of hits: " + str(n_results) + "\n";
-html += "    </p>\n";
-html += "  </body>\n"
-html += "</html>\n"    
-
 # Iterate over the returned entries
 for result in results:
     # In reality you need to do something here to start a row in your HTML table

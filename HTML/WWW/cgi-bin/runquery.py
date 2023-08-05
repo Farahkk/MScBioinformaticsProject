@@ -244,7 +244,8 @@ yes_no_buttons = ['conj',
                   'lc_remove_glycosylation_site']
 
 # A list of the multi-value buttons (i.e. not just yes/no and the word MUST appear)
-multi_value_buttons = ['Source_of_the_antibody', 
+multi_value_buttons = ['Identifier',
+                        'Source_of_the_antibody', 
                        'Antibody_type_Heavy_Chain', 
                        'Antibody_type_Light_Chain', 
                        'Special_format_chains',
@@ -344,7 +345,8 @@ alternative_value_buttons = {'hc_Enhance_ADCC':['MutationH', 'Enhance ADCC'],
                              'lc_remove_glycosylation_site':['MutationL', 'remove glycosylation site']}
 
 # A dictionary mapping the button name to the field we need to search
-fields = {'conj':'Format',
+fields = {'Identifier':'Request',
+          'conj':'Format',
           'bispecific':'Format',
           'fusion':'Format',
           'Source_of_the_antibody':'Format',

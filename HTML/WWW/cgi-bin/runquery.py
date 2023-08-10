@@ -245,7 +245,7 @@ yes_no_buttons = ['conj',
 
 # A list of the multi-value buttons (i.e. not just yes/no and the word MUST appear)
 multi_value_buttons = ['Identifier',
-                        'Source_of_the_antibody', 
+                       'Source_of_the_antibody', 
                        'Antibody_type_Heavy_Chain', 
                        'Antibody_type_Light_Chain', 
                        'Special_format_chains',

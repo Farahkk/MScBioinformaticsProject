@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 " " " Python program to populate json file " " "
 
-
 import sys
 import json
 import pymongo
@@ -44,6 +43,7 @@ collection.insert_one(record)
 #Read and print the data
 #for record in collection.find():
 #print(record)
+
 
 # to run the file in the terminal
 

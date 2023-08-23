@@ -1,10 +1,6 @@
 #!/usr/bin/python3
-# Python program to convert text file to JSON
+" " " Python program to convert text file to JSON " " "
 
-# for file in *.txt
-# do
-#     ./JSONConversionCode.py $file > `basename $file .txt`.json
-# done
 
 import sys
 import json
@@ -68,3 +64,10 @@ with open(filename, 'r') as f:
                                 dic[key] = value 
         print(json.dumps(dic, indent=2))
 
+
+# to run the file in the terminal
+
+# for file in *.txt
+# do
+#     ./JSONConversionCode.py $file > `basename $file .txt`.json
+# done

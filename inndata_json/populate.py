@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
-# Python program to read
-# json file
+" " " Python program to populate json file " " "
 
-#for file in *.json
-#do
-#./populate.py $file
-#done
 
 import sys
 import json
@@ -46,6 +41,13 @@ collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.
 # Insert the data
 collection.insert_one(record)
 
-# Read and print the data
+#Read and print the data
 #for record in collection.find():
 #print(record)
+
+# to run the file in the terminal
+
+#for file in *.json
+#do
+#./populate.py $file
+#done

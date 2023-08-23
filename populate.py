@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 " " " Python program to populate json file " " "
 
-#for file in *.json
-#do
-#./populate.py $file
-#done
 
 import sys
 import json

@@ -48,7 +48,7 @@ def mongo_connect(user, password, host, path, clusterName, collectionName):
 
 
 #An alternative version of add_to_query() which makes the searches case insensitive,
-#so you don't need to worry about 'reduce' vs 'Reduce', etc.
+#so we don't need to worry about 'reduce' vs 'Reduce', etc.
 
 def add_to_query(query_parts, key, value, yesno):
     query = ''
@@ -133,11 +133,11 @@ def run_query(collection, query):
 
     # Iterate over the returned entries
     for result in results:
-        # In reality you need to do something here to start a row in your HTML table
+        # In reality we need to do something here to start a row in HTML table
 
         # Iterate over the key/value pairs
         for key,value in result.items():
-            # Here you would test for the keys of interest that you want to use in the summary
+            # Here we would test for the keys of interest that we want to use in the summary
             # table and print the html table data for those
             if (len(key)):
                 print(key + ':' + value)
@@ -155,10 +155,10 @@ collection = mongo_connect("FarahKKhan", "Birkbeck2", "cluster0.p1f7xxu.mongodb.
 
 """
 
-Example of how you handle the yes/no/don't care buttons
+Example of how we handle the yes/no/don't care buttons
 
 Obviously, add_to_query(), combine_query_parts(), and run_query() are the routines
-you have been using previously.
+we have been using previously.
 
 """
 
@@ -260,7 +260,7 @@ multi_value_buttons = ['Identifier',
                        'CDRs_Source_for_humanized_antibodies']
 
 # A list of buttons where we simply require the keyword to appear (or not appear)
-# in the JSON, but don't care about the value (you don't have this at the moment in your HTML)
+# in the JSON, but don't care about the value
 no_value_buttons = ['has_mutation',
                     'hc_pot_o-linked',
                     'hc_con_o-linked',
@@ -270,7 +270,7 @@ no_value_buttons = ['has_mutation',
 # A list of buttons where we are searching for a specific piece of text within a field and where
 # we have a whole set of buttons searching the same field for different pieces of text
 
-#So you have a "list of dictionaries of lists". The first item in this example is:
+#So we have a "list of dictionaries of lists". The first item in this example is:
 #'hc_Enhance_ADCC':['MutationH', 'Enhance ADCC'],
 #'hc_Enhance_ADCC' is the button name
 #'MutationH' is the field to search
@@ -591,11 +591,11 @@ html += "    <pre>\n"
 
 # Iterate over the returned entries
 for result in results:
-    # In reality you need to do something here to start a row in your HTML table
+    # In reality we need to do something here to start a row in HTML table
 
     # Iterate over the key/value pairs
     for key,value in result.items():
-        # Here you would test for the keys of interest that you want to use in the summary
+        # Here we would test for the keys of interest that we want to use in the summary
         # table and print the html table data for those
         if (len(key)):
             html += key + ':' + value + "\n"
